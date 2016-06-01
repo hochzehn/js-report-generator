@@ -1,0 +1,8 @@
+# IDE files
+/.idea
+
+# Source data files
+/source
+
+# Generated reports
+/public
