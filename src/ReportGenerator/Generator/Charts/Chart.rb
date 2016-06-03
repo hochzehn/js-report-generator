@@ -2,7 +2,7 @@ require 'json'
 require 'securerandom'
 
 class Chart
-  attr_accessor :options
+  attr_accessor :options, :title
   attr_reader :data
 
   def initialize data
@@ -27,7 +27,12 @@ class Chart
   end
 
   def html
-    html_container + html_script
+    html_title + html_container + html_script
+  end
+
+  def html_title
+    return '' unless title
+    '<h2>%s</h2>' % title
   end
 
   def html_container
