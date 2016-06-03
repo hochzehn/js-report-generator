@@ -3,6 +3,8 @@ require 'json'
 class LibraryVersionData < DataFromJson
   FILE = 'source/js.library.version.json'
 
+  attr_accessor :library_name
+
   def initialize
     super
     @data = group_by_name(@data).collect{ |group| sort_by_version group }.flatten
@@ -13,6 +15,7 @@ class LibraryVersionData < DataFromJson
 
     result = self.class.new
     result.data = new_data
+    result.library_name = library
 
     result
   end

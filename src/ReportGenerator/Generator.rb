@@ -31,11 +31,15 @@ class Generator
       libraryData = LibraryData.new
       libraryVersionData = LibraryVersionData.new
 
-      libraryData.labels.first(10).collect do |library|
-          data_chunk = libraryVersionData.for library
+      versionDataPerLibrary = libraryData.labels.first(10).collect do |library|
+          libraryVersionData.for library
+      end
 
-          chart = LibraryVersionChart.new(data_chunk)
-          chart.title = "Versions in use for JavaScript library #{library}"
+      versionDataPerLibrary.reject!{|item| item.labels.count <= 1}
+
+      versionDataPerLibrary.collect do |item|
+          chart = LibraryVersionChart.new(item)
+          chart.title = "Versions in use for JavaScript library #{item.library_name}"
 
           chart
       end
