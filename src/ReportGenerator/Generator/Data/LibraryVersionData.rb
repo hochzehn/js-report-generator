@@ -3,9 +3,18 @@ require 'json'
 class LibraryVersionData < DataFromJson
   FILE = 'source/js.library.version.json'
 
-  def data
-    result = super
-    group_by_name(result).collect{ |group| sort_by_version group }.flatten
+  def initialize
+    super
+    @data = group_by_name(@data).collect{ |group| sort_by_version group }.flatten
+  end
+
+  def for library
+    new_data = group_by_name(data).select{ |group| group.first["name"] == library}.flatten
+
+    result = self.class.new
+    result.data = new_data
+
+    result
   end
 
   def group_by_name list
@@ -15,7 +24,7 @@ class LibraryVersionData < DataFromJson
     current = []
     list.each do |entry|
       if (entry["name"] != prev)
-        result << current
+        result << current unless current.empty?
         current = []
       end
 

@@ -19,7 +19,6 @@ class Generator
 
   def self.library_chart
       libraryData = LibraryData.new
-      libraryVersionData = LibraryVersionData.new
 
       libraryChart = LibraryChart.new(libraryData)
       libraryChart.title = 'Top 15 most-used JavaScript libraries'
@@ -29,8 +28,17 @@ class Generator
   end
 
   def self.library_version_charts
+      libraryData = LibraryData.new
       libraryVersionData = LibraryVersionData.new
-      [ LibraryVersionChart.new(libraryVersionData) ]
+
+      libraryData.labels.first(10).collect do |library|
+          data_chunk = libraryVersionData.for library
+
+          chart = LibraryVersionChart.new(data_chunk)
+          chart.title = "Versions in use for JavaScript library #{library}"
+
+          chart
+      end
   end
 
 end
