@@ -1,10 +1,17 @@
-class LibraryVersionChart < ChartFromJson
+require 'json'
+
+class LibraryVersionChart < Chart
   FILE = 'source/js.library.version.json'
 
   def initialize
-    super
+    super jsonData
 
     @options.merge! ({ axisY: { offset: 200 }})
+  end
+
+  def jsonData
+    raise "Missing file path for loading data." unless self.class::FILE
+    JSON.parse(File.read(self.class::FILE));
   end
 
   def data

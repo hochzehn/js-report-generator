@@ -1,11 +1,9 @@
-class LibraryChart < ChartFromJson
-  FILE = 'source/js.library.json'
-
+class LibraryChart < Chart
   def labels
-    data.collect{|item| item["name"] }
+    data.labels
   end
 
   def series
-    data.collect{|item| item["usages"].to_i }
+    data.series
   end
 end

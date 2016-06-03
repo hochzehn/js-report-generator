@@ -1,11 +1,13 @@
 require 'json'
 require 'securerandom'
-class ChartFromJson
-  FILE = nil
 
+class Chart
   attr_accessor :options
+  attr_reader :data
 
-  def initialize
+  def initialize data
+    @data = data
+
     @options = {
       seriesBarDistance: 10,
       reverseData: true,
@@ -18,11 +20,6 @@ class ChartFromJson
          onlyInteger: true,
       }
     }
-  end
-
-  def data
-    raise "Missing file path for loading data." unless self.class::FILE
-    @data ||= JSON.parse(File.read(self.class::FILE));
   end
 
   def chart_id
