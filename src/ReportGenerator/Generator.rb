@@ -1,4 +1,4 @@
-require_relative 'Charts'
+require_relative 'Generator/Charts'
 
 class Generator
 
