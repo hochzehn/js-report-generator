@@ -39,7 +39,7 @@ class Generator
 
       versionDataPerLibrary.collect do |item|
           chart = LibraryVersionChart.new(item)
-          chart.title = "Versions in use for JavaScript library #{item.library_name}"
+          chart.title = "#{item.library_name} versions"
 
           chart
       end
